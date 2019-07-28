@@ -1,39 +1,9 @@
-#include <cstring>    // sizeof()
-#include <iostream>
-#include <string>
-#include <sstream>  // stringstream
-
-// headers for socket(), getaddrinfo() and friends
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <sys/socket.h>
-#include <sys/types.h>
-
-#include <unistd.h>    // close()
-
-class Server
-{
-    public:
-        Server();
-        void repeat();
-        void pitch();
-        void release();
-        char recieve[30];
-        std::string recieve_data = "";
-        int sockFD;
-        int newFD;
-        // private:
-        addrinfo *res;
-        std::string response;
-        sockaddr_storage client_addr;
-        socklen_t client_addr_size = sizeof(client_addr);
-
-};
+#include "TCP_Server.h"
 
 //initial the socket
-Server::Server(void)
+TCP_Server::TCP_Server(void)
 {
-    auto &portNum = "9090";  // set local port number to 9090
+    auto &portNum = LOCAL_PORT;  // set local port number to 9090
     const unsigned int backLog = 8;  // number of connections allowed on the incoming queue
 
     // addrinfo hints, *res, *p;
@@ -99,20 +69,15 @@ Server::Server(void)
 
     p = res;
 
-    // let's create a new socket, socketFD is returned as descriptor
-    // man socket for more information
-    // these calls usually return -1 as result of some error
     sockFD = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+    // only for situation that the port restarted right away while sockets are still active on its port
+    int opt = 1;
+    setsockopt(sockFD, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
     if (sockFD == -1) {
         std::cerr << "Error while creating socket\n";
         freeaddrinfo(res);
     }
 
-    // only for situation that the port restarted right away while sockets are still active on its port
-    // int opt = 1;
-    // setsockopt(sockFD, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
-
-    // Let's bind address to our socket we've just created
     int bindR = bind(sockFD, p->ai_addr, p->ai_addrlen);
     if (bindR == -1) {
         std::cerr << "Error while binding socket\n";
@@ -132,13 +97,13 @@ Server::Server(void)
     }
 }
 
-void Server::release(void)
+void TCP_Server::release(void)
 {
     close(sockFD);
     freeaddrinfo(res);
 }
 
-void Server::repeat(void)
+void TCP_Server::repeat(void)
 {
     newFD = accept(sockFD, (sockaddr *) &client_addr, &client_addr_size);
     if (newFD == -1)
@@ -160,13 +125,3 @@ void Server::repeat(void)
     return;
 }
 
-int main()
-{
-    Server server;
-    while(server.recieve_data != "q\n")
-    {
-        server.repeat();
-    }
-    server.release();
-    return 0;
-}

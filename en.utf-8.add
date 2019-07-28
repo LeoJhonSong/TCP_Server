@@ -6,3 +6,5 @@ socketFD
 sockFD
 setsockopt
 REUSEADDR
+stringstream
+addrinfo
