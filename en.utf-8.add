@@ -3,3 +3,6 @@ getaddrinfo
 numOfAddr
 param
 socketFD
+sockFD
+setsockopt
+REUSEADDR

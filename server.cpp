@@ -1,6 +1,7 @@
 #include <cstring>    // sizeof()
 #include <iostream>
 #include <string>
+#include <sstream>  // stringstream
 
 // headers for socket(), getaddrinfo() and friends
 #include <arpa/inet.h>
@@ -10,13 +11,33 @@
 
 #include <unistd.h>    // close()
 
-
-int main(int argc, char *argv[])
+class Server
 {
-    auto &portNum = "9090";  // set port number to 9090
+    public:
+        Server();
+        void repeat();
+        void pitch();
+        void release();
+        char recieve[30];
+        std::string recieve_data = "";
+        int sockFD;
+        int newFD;
+        // private:
+        addrinfo *res;
+        std::string response;
+        sockaddr_storage client_addr;
+        socklen_t client_addr_size = sizeof(client_addr);
+
+};
+
+//initial the socket
+Server::Server(void)
+{
+    auto &portNum = "9090";  // set local port number to 9090
     const unsigned int backLog = 8;  // number of connections allowed on the incoming queue
 
-    addrinfo hints, *res, *p;    // we need 2 pointers, res to hold and p to iterate over
+    // addrinfo hints, *res, *p;
+    addrinfo hints, *p;    // we need 2 pointers, res to hold and p to iterate over
     memset(&hints, 0, sizeof(hints));
 
     // for more explanation, man socket
@@ -29,7 +50,6 @@ int main(int argc, char *argv[])
     int gAddRes = getaddrinfo(NULL, portNum, &hints, &res);
     if (gAddRes != 0) {
         std::cerr << gai_strerror(gAddRes) << "\n";
-        return -2;
     }
 
     // std::cout << "Detecting addresses" << std::endl;
@@ -69,7 +89,6 @@ int main(int argc, char *argv[])
     // if no addresses found :(
     if (!numOfAddr) {
         std::cerr << "Found no host address to use\n";
-        return -3;
     }
 
     // choose IPv4 address
@@ -83,13 +102,15 @@ int main(int argc, char *argv[])
     // let's create a new socket, socketFD is returned as descriptor
     // man socket for more information
     // these calls usually return -1 as result of some error
-    int sockFD = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+    sockFD = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
     if (sockFD == -1) {
         std::cerr << "Error while creating socket\n";
         freeaddrinfo(res);
-        return -4;
     }
 
+    // only for situation that the port restarted right away while sockets are still active on its port
+    // int opt = 1;
+    // setsockopt(sockFD, SOL_SOCKET, SO_REUSEADDR, (const void *)&opt, sizeof(opt));
 
     // Let's bind address to our socket we've just created
     int bindR = bind(sockFD, p->ai_addr, p->ai_addrlen);
@@ -98,49 +119,54 @@ int main(int argc, char *argv[])
         // if some error occurs, make sure to close socket and free resources
         close(sockFD);
         freeaddrinfo(res);
-        return -5;
     }
 
     // finally start listening for connections on our socket
     int listenR = listen(sockFD, backLog);
-    if (listenR == -1) {
+    if (listenR == -1)
+    {
         std::cerr << "Error while Listening on socket\n";
-
         // if some error occurs, make sure to close socket and free resources
         close(sockFD);
         freeaddrinfo(res);
-        return -6;
     }
+}
 
-    // structure large enough to hold client's address
-    sockaddr_storage client_addr;
-    socklen_t client_addr_size = sizeof(client_addr);
-
-    std::string response;
-    char recieve[27];
-
-    // a fresh infinite loop to communicate with incoming connections
-    // this will take client connections one at a time
-    while (1) {
-
-        // accept call will give us a new socket descriptor
-        int newFD = accept(sockFD, (sockaddr *) &client_addr, &client_addr_size);
-        if (newFD == -1) {
-            std::cerr << "Error while Accepting on socket\n";
-            continue;
-        }
-
-        // std::cout << "got" << std::endl;  // for debug
-        auto bytes_recv = recv(newFD, recieve, 27, 0);
-        response = recieve;
-        std::cout << "response will be:\n\n" << recieve;// << std::endl;
-        // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
-        auto bytes_sent = send(newFD, response.data(), response.length(), 0);
-        close(newFD);
-    }
-
+void Server::release(void)
+{
     close(sockFD);
     freeaddrinfo(res);
+}
 
+void Server::repeat(void)
+{
+    newFD = accept(sockFD, (sockaddr *) &client_addr, &client_addr_size);
+    if (newFD == -1)
+    {
+        std::cerr << "Error while Accepting on socket\n";
+        return;
+    }
+    // std::cout << "got" << std::endl;  // for debug
+    memset(recieve, 0, sizeof(recieve));
+    auto bytes_recv = recv(newFD, recieve, 27, 0);
+    std::stringstream ss;
+    ss << "response is " << recieve;
+    response = ss.str();
+    std::cout << "response will be: " << recieve;// << std::endl;
+    // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
+    auto bytes_sent = send(newFD, response.data(), response.length(), 0);
+    close(newFD);
+    recieve_data = recieve;  // I don't know why but read value of recieve during this socket is very possible to cause problem
+    return;
+}
+
+int main()
+{
+    Server server;
+    while(server.recieve_data != "q\n")
+    {
+        server.repeat();
+    }
+    server.release();
     return 0;
 }
