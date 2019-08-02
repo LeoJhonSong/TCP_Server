@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leo/Desktop/TCP_Server/src
+CMAKE_SOURCE_DIR = /home/leo/Desktop/TCP_Server/test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leo/Desktop/TCP_Server
+CMAKE_BINARY_DIR = /home/leo/Desktop/TCP_Server/test
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/TCP_Server/CMakeFiles /home/leo/Desktop/TCP_Server/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/TCP_Server/test/CMakeFiles /home/leo/Desktop/TCP_Server/test/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/TCP_Server/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leo/Desktop/TCP_Server/test/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,71 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named TCP_Server
+# Target rules for targets named server_test
 
 # Build rule for target.
-TCP_Server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 TCP_Server
-.PHONY : TCP_Server
+server_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 server_test
+.PHONY : server_test
 
 # fast build rule for target.
-TCP_Server/fast:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/build
-.PHONY : TCP_Server/fast
+server_test/fast:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/build
+.PHONY : server_test/fast
 
-TCP_Server.o: TCP_Server.cpp.o
+home/leo/Desktop/TCP_Server/src/TCP_Server.o: home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.o
 
-.PHONY : TCP_Server.o
-
-# target to build an object file
-TCP_Server.cpp.o:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/TCP_Server.cpp.o
-.PHONY : TCP_Server.cpp.o
-
-TCP_Server.i: TCP_Server.cpp.i
-
-.PHONY : TCP_Server.i
-
-# target to preprocess a source file
-TCP_Server.cpp.i:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/TCP_Server.cpp.i
-.PHONY : TCP_Server.cpp.i
-
-TCP_Server.s: TCP_Server.cpp.s
-
-.PHONY : TCP_Server.s
-
-# target to generate assembly for a file
-TCP_Server.cpp.s:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/TCP_Server.cpp.s
-.PHONY : TCP_Server.cpp.s
-
-main.o: main.cpp.o
-
-.PHONY : main.o
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/main.cpp.o
-.PHONY : main.cpp.o
+home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.o:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.o
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.o
 
-main.i: main.cpp.i
+home/leo/Desktop/TCP_Server/src/TCP_Server.i: home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.i
 
-.PHONY : main.i
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/main.cpp.i
-.PHONY : main.cpp.i
+home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.i:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.i
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.i
 
-main.s: main.cpp.s
+home/leo/Desktop/TCP_Server/src/TCP_Server.s: home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.s
 
-.PHONY : main.s
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/TCP_Server.dir/build.make CMakeFiles/TCP_Server.dir/main.cpp.s
-.PHONY : main.cpp.s
+home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.s:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.s
+.PHONY : home/leo/Desktop/TCP_Server/src/TCP_Server.cpp.s
+
+home/leo/Desktop/TCP_Server/src/test.o: home/leo/Desktop/TCP_Server/src/test.cpp.o
+
+.PHONY : home/leo/Desktop/TCP_Server/src/test.o
+
+# target to build an object file
+home/leo/Desktop/TCP_Server/src/test.cpp.o:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/test.cpp.o
+.PHONY : home/leo/Desktop/TCP_Server/src/test.cpp.o
+
+home/leo/Desktop/TCP_Server/src/test.i: home/leo/Desktop/TCP_Server/src/test.cpp.i
+
+.PHONY : home/leo/Desktop/TCP_Server/src/test.i
+
+# target to preprocess a source file
+home/leo/Desktop/TCP_Server/src/test.cpp.i:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/test.cpp.i
+.PHONY : home/leo/Desktop/TCP_Server/src/test.cpp.i
+
+home/leo/Desktop/TCP_Server/src/test.s: home/leo/Desktop/TCP_Server/src/test.cpp.s
+
+.PHONY : home/leo/Desktop/TCP_Server/src/test.s
+
+# target to generate assembly for a file
+home/leo/Desktop/TCP_Server/src/test.cpp.s:
+	$(MAKE) -f CMakeFiles/server_test.dir/build.make CMakeFiles/server_test.dir/home/leo/Desktop/TCP_Server/src/test.cpp.s
+.PHONY : home/leo/Desktop/TCP_Server/src/test.cpp.s
 
 # Help Target
 help:
@@ -184,14 +184,14 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... TCP_Server"
+	@echo "... server_test"
 	@echo "... edit_cache"
-	@echo "... TCP_Server.o"
-	@echo "... TCP_Server.i"
-	@echo "... TCP_Server.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... home/leo/Desktop/TCP_Server/src/TCP_Server.o"
+	@echo "... home/leo/Desktop/TCP_Server/src/TCP_Server.i"
+	@echo "... home/leo/Desktop/TCP_Server/src/TCP_Server.s"
+	@echo "... home/leo/Desktop/TCP_Server/src/test.o"
+	@echo "... home/leo/Desktop/TCP_Server/src/test.i"
+	@echo "... home/leo/Desktop/TCP_Server/src/test.s"
 .PHONY : help
 
 

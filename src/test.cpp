@@ -5,7 +5,7 @@
 
 int main()
 {
-    time_t last, now;
+    time_t last;
     int i = 18;
     TCP_Server server;
     // while(server.receive_data != "q\n")

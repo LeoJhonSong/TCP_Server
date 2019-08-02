@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.10.2)
+project(TCP_Server)
+
+INCLUDE_DIRECTORIES(../include)
+
+AUX_SOURCE_DIRECTORY(../src DIR_SRCS)
+
+SET(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+
+add_executable(server_test ${DIR_SRCS})

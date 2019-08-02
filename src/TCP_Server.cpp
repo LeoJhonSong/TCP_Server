@@ -142,60 +142,60 @@ void TCP_Server::sendMsg(int move)
     switch(move)
     {
         case 0:
-            response.assign(FORWARD, 27);
+            response.assign(MOVE_FORWARD, 27);
             break;
         case 1:
-            response.assign(BACKWARD, 27);
+            response.assign(MOVE_BACKWARD, 27);
             break;
         case 2:
-            response.assign(LEFT, 27);
+            response.assign(MOVE_LEFT, 27);
             break;
         case 3:
-            response.assign(RIGHT, 27);
+            response.assign(MOVE_RIGHT, 27);
             break;
         case 4:
-            response.assign(TURN_LEFT, 27);
+            response.assign(MOVE_TURN_LEFT, 27);
             break;
         case 5:
-            response.assign(TURN_RIGHT, 27);
+            response.assign(MOVE_TURN_RIGHT, 27);
             break;
         case 6:
-            response.assign(UP, 27);
+            response.assign(MOVE_UP, 27);
             break;
         case 7:
-            response.assign(DOWN, 27);
+            response.assign(MOVE_DOWN, 27);
             break;
         case 8:
-            response.assign(HALF_FORWARD, 27);
+            response.assign(MOVE_HALF_FORWARD, 27);
             break;
         case 9:
-            response.assign(HALF_BACKWARD, 27);
+            response.assign(MOVE_HALF_BACKWARD, 27);
             break;
         case 10:
-            response.assign(HALF_LEFT, 27);
+            response.assign(MOVE_HALF_LEFT, 27);
             break;
         case 11:
-            response.assign(HALF_RIGHT, 27);
+            response.assign(MOVE_HALF_RIGHT, 27);
             break;
         case 12:
-            response.assign(HALF_TURN_LEFT, 27);
+            response.assign(MOVE_HALF_TURN_LEFT, 27);
             break;
         case 13:
-            response.assign(HALF_TURN_RIGHT, 27);
+            response.assign(MOVE_HALF_TURN_RIGHT, 27);
             break;
         case 14:
-            response.assign(HALF_UP, 27);
+            response.assign(MOVE_HALF_UP, 27);
             break;
         case 15:
-            response.assign(HALF_DOWN, 27);
+            response.assign(MOVE_HALF_DOWN, 27);
             break;
         default:
-            response.assign(SLEEP, 27);
+            response.assign(MOVE_SLEEP, 27);
             break;
     }
     // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
     // auto bytes_sent = send(newFD, response.data(), response.length(), 0);
-    response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
+    // response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
     auto bytes_sent = send(newFD, response.data(), response.length(), 0);
     std::cout << isOneLeak << std::endl;
     std::cout << isTwoLeak << std::endl;
