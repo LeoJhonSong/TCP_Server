@@ -24,6 +24,5 @@ int main()
         }
     }
     server.sendMsg(18);
-    server.release();
     return 0;
 }

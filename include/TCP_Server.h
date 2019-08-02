@@ -58,25 +58,23 @@
 #define SEND_SLEEP              16
 
 class TCP_Server {
-public:
-    int isOneLeak = 0;
-    int isTwoLeak = 0;
-    float depth = 0;
-    std::string receive_data;
-    int newFD;
+    public:
+        int isOneLeak = 0;
+        int isTwoLeak = 0;
+        float depth = 0;
 
-    TCP_Server();
-    void recvMsg();
-    void sendMsg(int move);
-    void release();
-private:
-    int is_new = 0;
-    int sockFD;
-    char receive[RECEIVE_LENGTH];
-    addrinfo *res;
-    // std::string response;
-    sockaddr_storage client_addr;
-    socklen_t client_addr_size = sizeof(client_addr);
+        TCP_Server();
+        ~TCP_Server();
+        void recvMsg();
+        void sendMsg(int move);
+    private:
+        int is_new = 0;
+        int sockFD;
+        int newFD;
+        char receive[RECEIVE_LENGTH];
+        addrinfo *res;
+        sockaddr_storage client_addr;
+        socklen_t client_addr_size = sizeof(client_addr);
 };
 
 #endif //TCP_SERVER_TCP_SERVER_H

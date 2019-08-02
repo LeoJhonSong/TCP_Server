@@ -101,7 +101,7 @@ TCP_Server::TCP_Server(void)
     }
 }
 
-void TCP_Server::release(void)
+TCP_Server::~TCP_Server(void)
 // release the socket
 {
     close(newFD);
@@ -122,14 +122,15 @@ void TCP_Server::recvMsg(void)
         std::cerr << "Error while Accepting on socket\n";
         return;
     }
-    // std::cout << "got" << std::endl;  // for debug
     memset(receive, 0, sizeof(receive));
     auto bytes_recv = recv(newFD, receive, 27, 0);
+
     if(receive[4] == '\xaa'){ isOneLeak = 1; }
     if(receive[7] == '\xaa'){ isTwoLeak = 1; }
     depth = (int(receive[8]) * 256 + int(receive[9])) / 100.0;  // the unit is meter
-    receive_data = receive;  // since receive_data is a string but not char array, the length of receive_data is changeable
-    std::cout << depth << std::endl;
+    // std::cout << isOneLeak << std::endl;
+    // std::cout << isTwoLeak << std::endl;
+    // std::cout << depth << std::endl;
 }
 
 void TCP_Server::sendMsg(int move)
@@ -197,6 +198,4 @@ void TCP_Server::sendMsg(int move)
     // auto bytes_sent = send(newFD, response.data(), response.length(), 0);
     // response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
     auto bytes_sent = send(newFD, response.data(), response.length(), 0);
-    std::cout << isOneLeak << std::endl;
-    std::cout << isTwoLeak << std::endl;
 }
