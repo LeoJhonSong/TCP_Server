@@ -1,3 +1,0 @@
-/home/leo/Desktop/TCP_Server/CMakeFiles/rebuild_cache.dir
-/home/leo/Desktop/TCP_Server/CMakeFiles/TCP_Server.dir
-/home/leo/Desktop/TCP_Server/CMakeFiles/edit_cache.dir

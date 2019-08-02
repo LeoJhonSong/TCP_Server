@@ -207,9 +207,10 @@ void TCP_Server::sendMsg(int move)
     // }
     // response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
     // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
-    // std::cout << std::hex << std::stoi(response, nullptr, 0) << std::endl;
     // auto bytes_sent = send(newFD, response.data(), response.length(), 0);
     unsigned char response[28] = SLEEP;
+    unsigned char resp[28] = "\xfe fe03";
+    char recw[28] = "\x14w";
     auto bytes_sent = send(newFD, response, 27, 0);
     std::cout << isOneLeak << std::endl;
     std::cout << isTwoLeak << std::endl;
