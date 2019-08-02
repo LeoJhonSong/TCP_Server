@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.vt": "verilog",
+        "*.tcc": "cpp",
+        "string_view": "cpp"
+    }
+}

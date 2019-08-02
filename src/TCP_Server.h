@@ -1,6 +1,9 @@
 //
 // Created by leo on 2019/7/30.
 //
+#ifndef TCP_SERVER_TCP_SERVER_H
+#define TCP_SERVER_TCP_SERVER_H
+
 #include <cstring>    // sizeof()
 #include <iostream>
 #include <string>
@@ -11,13 +14,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>    // close()
-#include <algorithm>  // remove_if()
-#include <cctype>  // isspace
-#include <vector>
-#ifndef TCP_SERVER_TCP_SERVER_H
-#define TCP_SERVER_TCP_SERVER_H
 
-#define SEND_LENGTH 30
+#define RESPONSE_LENGTH 28
 #define RECEIVE_LENGTH 30
 #define LOCAL_PORT "9090"
 
@@ -57,7 +55,7 @@ private:
     int sockFD;
     char receive[RECEIVE_LENGTH];
     addrinfo *res;
-    std::string response;
+    // std::string response;
     sockaddr_storage client_addr;
     socklen_t client_addr_size = sizeof(client_addr);
 };

@@ -151,67 +151,66 @@ void TCP_Server::sendMsg(int move)
 // HALF_UP          14
 // HALF_DOWN        15
 {
-    switch(move)
-    {
-        case 0:
-            response = FORWARD;
-            break;
-        case 1:
-            response = BACKWARD;
-            break;
-        case 2:
-            response = LEFT;
-            break;
-        case 3:
-            response = RIGHT;
-            break;
-        case 4:
-            response = TURN_LEFT;
-            break;
-        case 5:
-            response = TURN_RIGHT;
-            break;
-        case 6:
-            response = UP;
-            break;
-        case 7:
-            response = DOWN;
-            break;
-        case 8:
-            response = HALF_FORWARD;
-            break;
-        case 9:
-            response = HALF_BACKWARD;
-            break;
-        case 10:
-            response = HALF_LEFT;
-            break;
-        case 11:
-            response = HALF_RIGHT;
-            break;
-        case 12:
-            response = HALF_TURN_LEFT;
-            break;
-        case 13:
-            response = HALF_TURN_RIGHT;
-            break;
-        case 14:
-            response = HALF_UP;
-            break;
-        case 15:
-            response = HALF_DOWN;
-            break;
-        default:
-            response = SLEEP;
-            break;
-    }
+    // switch(move)
+    // {
+    //     case 0:
+    //         char response[28] = FORWARD;
+    //         break;
+    //     case 1:
+    //         char response[28] = BACKWARD;
+    //         break;
+    //     case 2:
+    //         char response[28] = LEFT;
+    //         break;
+    //     case 3:
+    //         char response[28] = RIGHT;
+    //         break;
+    //     case 4:
+    //         char response[28] = TURN_LEFT;
+    //         break;
+    //     case 5:
+    //         char response[28] = TURN_RIGHT;
+    //         break;
+    //     case 6:
+    //         char response[28] = UP;
+    //         break;
+    //     case 7:
+    //         char response[28] = DOWN;
+    //         break;
+    //     case 8:
+    //         char response[28] = HALF_FORWARD;
+    //         break;
+    //     case 9:
+    //         char response[28] = HALF_BACKWARD;
+    //         break;
+    //     case 10:
+    //         char response[28] = HALF_LEFT;
+    //         break;
+    //     case 11:
+    //         char response[28] = HALF_RIGHT;
+    //         break;
+    //     case 12:
+    //         char response[28] = HALF_TURN_LEFT;
+    //         break;
+    //     case 13:
+    //         char response[28] = HALF_TURN_RIGHT;
+    //         break;
+    //     case 14:
+    //         char response[28] = HALF_UP;
+    //         break;
+    //     case 15:
+    //         char response[28] = HALF_DOWN;
+    //         break;
+    //     default:
+    //         char response[28] = SLEEP;
+    //         break;
+    // }
     // response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
-    char response[28]  = "\xfe\xfe\x03\x00\x03\xb6\x03\xb6\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x7f\x7f\x7f\x7f\x03\xfd\xfd";
     // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
     // std::cout << std::hex << std::stoi(response, nullptr, 0) << std::endl;
     // auto bytes_sent = send(newFD, response.data(), response.length(), 0);
+    unsigned char response[28] = SLEEP;
     auto bytes_sent = send(newFD, response, 27, 0);
-    // auto bytes_sent = send(newFD, resp, 50, 0);
     std::cout << isOneLeak << std::endl;
     std::cout << isTwoLeak << std::endl;
 }
