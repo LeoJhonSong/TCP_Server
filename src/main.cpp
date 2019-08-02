@@ -9,21 +9,21 @@ int main()
     int i = 18;
     TCP_Server server;
     // while(server.receive_data != "q\n")
+    last = time(NULL);
     while(i > -1)
     {
         server.recvMsg();
-        last = time(NULL);
         if(1)
         {
             server.sendMsg(i);
-            if((time(NULL) - last) == 1)  // change move mode every 1s
+            if((time(NULL) - last) >= 1)  // change move mode every 1s
             {
                 last = time(NULL);
                 i = i - 1;
             }
         }
-        // close(server.newFD);
     }
+    server.sendMsg(18);
     server.release();
     return 0;
 }

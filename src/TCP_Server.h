@@ -14,8 +14,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>    // close()
+#include <algorithm>  // remove_if()
 
-#define RESPONSE_LENGTH 28
 #define RECEIVE_LENGTH 30
 #define LOCAL_PORT "9090"
 

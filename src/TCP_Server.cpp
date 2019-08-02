@@ -1,5 +1,5 @@
 //
-// Created by leo on 2019/7/30.
+// Created by SONGZhuHeng on 2019/7/30.
 //
 
 #include "TCP_Server.h"
@@ -110,7 +110,7 @@ void TCP_Server::release(void)
 }
 
 void TCP_Server::recvMsg(void)
-// receive message from the client (ROV)
+// receive message from the ROV
 {
     if(!is_new)
     {
@@ -133,85 +133,70 @@ void TCP_Server::recvMsg(void)
 }
 
 void TCP_Server::sendMsg(int move)
-// move:
-// FORWARD          0
-// BACKWARD         1
-// LEFT             2
-// RIGHT            3
-// TURN_LEFT        4
-// TURN_RIGHT       5
-// UP               6
-// DOWN             7
-// HALF_FORWARD     8
-// HALF_BACKWARD    9
-// HALF_LEFT        10
-// HALF_RIGHT       11
-// HALF_TURN_LEFT   12
-// HALF_TURN_RIGHT  13
-// HALF_UP          14
-// HALF_DOWN        15
+// send move commands
+// moves:
+//    FORWARD BACKWARD LEFT RIGHT TURN_LEFT TURN_RIGHT UP DOWN HALF_FORWARD HALF_BACKWARD HALF_LEFT HALF_RIGHT HALF_TURN_LEFT HALF_TURN_RIGHT HALF_UP HALF_DOWN
+//    0       1        2    3     4         5    6     7  8    9            10            11        12         13             14              15
 {
-    // switch(move)
-    // {
-    //     case 0:
-    //         char response[28] = FORWARD;
-    //         break;
-    //     case 1:
-    //         char response[28] = BACKWARD;
-    //         break;
-    //     case 2:
-    //         char response[28] = LEFT;
-    //         break;
-    //     case 3:
-    //         char response[28] = RIGHT;
-    //         break;
-    //     case 4:
-    //         char response[28] = TURN_LEFT;
-    //         break;
-    //     case 5:
-    //         char response[28] = TURN_RIGHT;
-    //         break;
-    //     case 6:
-    //         char response[28] = UP;
-    //         break;
-    //     case 7:
-    //         char response[28] = DOWN;
-    //         break;
-    //     case 8:
-    //         char response[28] = HALF_FORWARD;
-    //         break;
-    //     case 9:
-    //         char response[28] = HALF_BACKWARD;
-    //         break;
-    //     case 10:
-    //         char response[28] = HALF_LEFT;
-    //         break;
-    //     case 11:
-    //         char response[28] = HALF_RIGHT;
-    //         break;
-    //     case 12:
-    //         char response[28] = HALF_TURN_LEFT;
-    //         break;
-    //     case 13:
-    //         char response[28] = HALF_TURN_RIGHT;
-    //         break;
-    //     case 14:
-    //         char response[28] = HALF_UP;
-    //         break;
-    //     case 15:
-    //         char response[28] = HALF_DOWN;
-    //         break;
-    //     default:
-    //         char response[28] = SLEEP;
-    //         break;
-    // }
-    // response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
+    std::string response;
+    switch(move)
+    {
+        case 0:
+            response.assign(FORWARD, 27);
+            break;
+        case 1:
+            response.assign(BACKWARD, 27);
+            break;
+        case 2:
+            response.assign(LEFT, 27);
+            break;
+        case 3:
+            response.assign(RIGHT, 27);
+            break;
+        case 4:
+            response.assign(TURN_LEFT, 27);
+            break;
+        case 5:
+            response.assign(TURN_RIGHT, 27);
+            break;
+        case 6:
+            response.assign(UP, 27);
+            break;
+        case 7:
+            response.assign(DOWN, 27);
+            break;
+        case 8:
+            response.assign(HALF_FORWARD, 27);
+            break;
+        case 9:
+            response.assign(HALF_BACKWARD, 27);
+            break;
+        case 10:
+            response.assign(HALF_LEFT, 27);
+            break;
+        case 11:
+            response.assign(HALF_RIGHT, 27);
+            break;
+        case 12:
+            response.assign(HALF_TURN_LEFT, 27);
+            break;
+        case 13:
+            response.assign(HALF_TURN_RIGHT, 27);
+            break;
+        case 14:
+            response.assign(HALF_UP, 27);
+            break;
+        case 15:
+            response.assign(HALF_DOWN, 27);
+            break;
+        default:
+            response.assign(SLEEP, 27);
+            break;
+    }
     // send call sends the data you specify as second param and it's length as 3rd param, also returns how many bytes were actually sent
     // auto bytes_sent = send(newFD, response.data(), response.length(), 0);
-    unsigned char response[28] = SLEEP;
-    unsigned char resp[28] = "\xfe fe03";
-    char recw[28] = "\x14w";
-    auto bytes_sent = send(newFD, response, 27, 0);
+    response.erase(std::remove_if(response.begin(), response.end(), ::isspace), response.end());  // remove spaces
+    auto bytes_sent = send(newFD, response.data(), response.length(), 0);
     std::cout << isOneLeak << std::endl;
     std::cout << isTwoLeak << std::endl;
 }
