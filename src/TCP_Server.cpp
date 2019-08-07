@@ -80,6 +80,7 @@ TCP_Server::TCP_Server(void)
     if (sockFD == -1) {
         std::cerr << "Error while creating socket\n";
         freeaddrinfo(res);
+        std::cout << "监听socket建立失败" << std::endl;
     }
 
     int bindR = bind(sockFD, p->ai_addr, p->ai_addrlen);
@@ -99,6 +100,7 @@ TCP_Server::TCP_Server(void)
         close(sockFD);
         freeaddrinfo(res);
     }
+    std::cout << "监听socket建立成功" << std::endl;
 }
 
 TCP_Server::~TCP_Server(void)
@@ -107,6 +109,7 @@ TCP_Server::~TCP_Server(void)
     close(newFD);
     close(sockFD);
     freeaddrinfo(res);
+    std::cout << "通信已关闭" << std::endl;
 }
 
 void TCP_Server::recvMsg(void)
@@ -116,10 +119,12 @@ void TCP_Server::recvMsg(void)
     {
         newFD = accept(sockFD, (sockaddr *) &client_addr, &client_addr_size);
         is_new = 1;
+        std::cout << "ROV连接成功" << std::endl;
     }
     if (newFD == -1)
     {
         std::cerr << "Error while Accepting on socket\n";
+        std::cout << "业务socket建立失败" << std::endl;
         return;
     }
     memset(receive, 0, sizeof(receive));
